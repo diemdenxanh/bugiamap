@@ -1,0 +1,269 @@
+/* Reset CSS và Font */
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body style */
+body {
+    font-family: montserrat, arial, verdana;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Animation cho background */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Container chính */
+.content-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 90%;
+    position: relative;
+    z-index: 1;
+}
+
+/* Tiêu đề */
+.section-title {
+    color: #333;
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+h3 {
+    color: #2C3E50;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+h4 {
+    color: #34495E;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+}
+
+/* Grid layouts */
+.attraction-cards, .activities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Card styles */
+.attraction-card, .activity-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.attraction-card:hover, .activity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Section spacing */
+.intro-section, .attractions-section, .activities-section, .travel-tips {
+    margin-bottom: 40px;
+}
+
+/* Text styles */
+p {
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* List styles */
+ul {
+    list-style-position: inside;
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+li {
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+/* Travel tips section */
+.travel-tips {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid #e73c7e;
+}
+
+/* Hiệu ứng tuyết rơi */
+.snowflake {
+    color: #fff;
+    font-size: 1em;
+    font-family: Arial;
+    text-shadow: 0 0 1px #000;
+    position: fixed;
+    top: -10%;
+    z-index: 999;
+    user-select: none;
+    pointer-events: none;
+    cursor: default;
+    animation-name: snowflake-fall, snowflake-shake;
+    animation-duration: 10s, 3s;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+    animation-play-state: running, running;
+}
+
+@keyframes snowflake-fall {
+    0% { top: -10%; }
+    100% { top: 100%; }
+}
+
+@keyframes snowflake-shake {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(80px); }
+}
+
+/* Hiệu ứng đèn nháy */
+.christmas-lights {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    pointer-events: none;
+}
+
+.light {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: lights 1.5s infinite alternate;
+}
+
+@keyframes lights {
+    0% { box-shadow: 0 0 10px #ff0000; }
+    25% { box-shadow: 0 0 10px #00ff00; }
+    50% { box-shadow: 0 0 10px #0000ff; }
+    75% { box-shadow: 0 0 10px #ffff00; }
+    100% { box-shadow: 0 0 10px #ff00ff; }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .content-section {
+        padding: 15px;
+        margin: 10px auto;
+        width: 95%;
+    }
+
+    .section-title {
+        font-size: 1.8em;
+    }
+
+    h3 {
+        font-size: 1.3em;
+    }
+
+    .attraction-cards, .activities-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .attraction-card, .activity-card {
+        padding: 15px;
+    }
+}
+
+/* Button styles */
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+button:focus {
+    outline: none;
+    border: none;
+}
+
+/* Link styles */
+a {
+    color: #e73c7e;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ee7752;
+}
+
+/* Support section */
+.support {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    padding: 10px;
+    display: flex;
+    z-index: 1000;
+}
+
+.support a {
+    margin: 0 10px;
+    color: #fff;
+    font-size: 1.8rem;
+    backface-visibility: hidden;
+    transition: all 150ms ease;
+}
+
+.support a:hover {
+    transform: scale(1.1);
+}
+
+/* Thêm style cho images trong cards */
+.attraction-card img, .activity-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+/* Sửa lỗi animation performance */
+@media (prefers-reduced-motion: reduce) {
+    .snowflake, .light {
+        animation: none;
+    }
+    
+    body {
+        animation: none;
+    }
+}
+
+/* Thêm smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}

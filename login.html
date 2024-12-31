@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập/Đăng ký | Explore Tourism</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Form Đăng nhập -->
+        <form class="login-form" id="loginForm">
+            <div class="form-header">
+                <h2>Đăng nhập</h2>
+                <p>Chào mừng bạn trở lại!</p>
+            </div>
+
+            <div class="form-group">
+                <input type="email" id="login-email" required>
+                <label for="login-email">Email</label>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="login-password" required>
+                <label for="login-password">Mật khẩu</label>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <span>Đăng nhập</span>
+            </button>
+
+            <div class="social-login">
+                <button type="button" class="social-btn google-btn">
+                    <i class="fab fa-google"></i>
+                    Google
+                </button>
+                <button type="button" class="social-btn facebook-btn">
+                    <i class="fab fa-facebook-f"></i>
+                    Facebook
+                </button>
+            </div>
+
+            <div class="form-footer">
+                <p>Chưa có tài khoản? <a href="#" id="showRegister">Đăng ký ngay</a></p>
+                <a href="forgot-password.html">Quên mật khẩu?</a>
+            </div>
+        </form>
+
+        <!-- Form Đăng ký -->
+        <form class="register-form" id="registerForm" style="display: none;">
+            <div class="form-header">
+                <h2>Đăng ký</h2>
+                <p>Tạo tài khoản mới</p>
+            </div>
+
+            <!-- Thanh tiến trình -->
+            <ul id="progressbar">
+                <li class="active">Tài khoản</li>
+                <li>Thông tin</li>
+                <li>Hoàn tất</li>
+            </ul>
+            
+            <!-- Bước 1: Thông tin tài khoản -->
+            <fieldset>
+                <h2 class="fs-title">Tạo tài khoản</h2>
+                <h3 class="fs-subtitle">Thông tin đăng nhập của bạn</h3>
+                
+                <div class="form-group">
+                    <input type="email" id="register-email" required>
+                    <label for="register-email">Email</label>
+                    <div class="error-message" id="email-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" id="register-password" required>
+                    <label for="register-password">Mật khẩu</label>
+                    <div class="error-message" id="password-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" id="confirm-password" required>
+                    <label for="confirm-password">Xác nhận mật khẩu</label>
+                    <div class="error-message" id="confirm-password-error"></div>
+                </div>
+
+                <input type="button" name="next" class="next action-button" value="Tiếp tục"/>
+            </fieldset>
+            
+            <!-- Bước 2: Thông tin cá nhân -->
+            <fieldset>
+                <h2 class="fs-title">Thông tin cá nhân</h2>
+                <h3 class="fs-subtitle">Cho chúng tôi biết thêm về bạn</h3>
+                
+                <div class="form-group">
+                    <input type="text" id="fullname" required>
+                    <label for="fullname">Họ và tên</label>
+                    <div class="error-message" id="fullname-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <input type="tel" id="phone" required>
+                    <label for="phone">Số điện thoại</label>
+                    <div class="error-message" id="phone-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="address" required>
+                    <label for="address">Địa chỉ</label>
+                    <div class="error-message" id="address-error"></div>
+                </div>
+
+                <input type="button" name="previous" class="previous action-button" value="Quay lại"/>
+                <input type="button" name="next" class="next action-button" value="Tiếp tục"/>
+            </fieldset>
+            
+            <!-- Bước 3: Hoàn tất -->
+            <fieldset>
+                <h2 class="fs-title">Hoàn tất đăng ký</h2>
+                <h3 class="fs-subtitle">Xác nhận thông tin của bạn</h3>
+                
+                <div class="form-group">
+                    <textarea id="bio" placeholder="Giới thiệu về bản thân (không bắt buộc)"></textarea>
+                </div>
+
+                <div class="social-login">
+                    <button type="button" class="social-btn google-btn">
+                        <i class="fab fa-google"></i>
+                        Google
+                    </button>
+                    <button type="button" class="social-btn facebook-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </button>
+                </div>
+
+                <input type="button" name="previous" class="previous action-button" value="Quay lại"/>
+                <input type="submit" name="submit" class="submit action-button" value="Đăng ký"/>
+            </fieldset>
+
+            <div class="form-footer">
+                <p>Đã có tài khoản? <a href="#" id="showLogin">Đăng nhập</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Script để chuyển đổi giữa form đăng nhập và đăng ký
+        document.getElementById('showRegister').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        });
+
+        document.getElementById('showLogin').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        });
+    </script>
+
+    <script type="module" src="login.js"></script>
+    <script type="module" src="register.js"></script>
+
+    <!-- Thêm container cho hiệu ứng -->
+    <div id="effects-container"></div>
+
+    <script>
+        // Tạo hiệu ứng hoa tuyết
+        function createSnowflakes() {
+            const numberOfSnowflakes = 50;
+            const container = document.getElementById('effects-container');
+            
+            for (let i = 0; i < numberOfSnowflakes; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = '❅';
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.animationDelay = Math.random() * 10 + 's';
+                snowflake.style.opacity = Math.random() * 0.8 + 0.2;
+                container.appendChild(snowflake);
+            }
+        }
+
+        // Tạo hiệu ứng hoa anh đào
+        function createSakura() {
+            const numberOfPetals = 30;
+            const container = document.getElementById('effects-container');
+            
+            for (let i = 0; i < numberOfPetals; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'sakura';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDelay = Math.random() * 10 + 's';
+                petal.style.opacity = Math.random() * 0.6 + 0.4;
+                container.appendChild(petal);
+            }
+        }
+
+        // Tối ưu hiệu năng bằng cách xóa các phần tử đã rơi xuống dưới
+        function cleanupEffects() {
+            const container = document.getElementById('effects-container');
+            const elements = container.children;
+            
+            for (let i = elements.length - 1; i >= 0; i--) {
+                const rect = elements[i].getBoundingClientRect();
+                if (rect.top > window.innerHeight) {
+                    container.removeChild(elements[i]);
+                }
+            }
+        }
+
+        // Tự động tạo lại các phần tử mới
+        function regenerateEffects() {
+            const container = document.getElementById('effects-container');
+            if (container.children.length < 80) { // Tổng số tối đa
+                if (Math.random() > 0.5) {
+                    createSnowflakes();
+                } else {
+                    createSakura();
+                }
+            }
+        }
+
+        // Khởi tạo hiệu ứng
+        window.onload = function() {
+            createSnowflakes();
+            createSakura();
+            
+            // Định kỳ dọn dẹp và tạo mới
+            setInterval(cleanupEffects, 5000);
+            setInterval(regenerateEffects, 3000);
+        };
+
+        // Tối ưu hiệu năng khi tab không active
+        document.addEventListener('visibilitychange', function() {
+            const container = document.getElementById('effects-container');
+            if (document.hidden) {
+                container.style.display = 'none';
+            } else {
+                container.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

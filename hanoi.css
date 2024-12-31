@@ -1,0 +1,164 @@
+/* Cấu trúc chung cho trang */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background-color: #28a745; /* Màu xanh lá */
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 18px;
+    margin-top: 0;
+}
+
+/* Nội dung chính */
+section#hanoi {
+    padding: 20px;
+    background-color: white;
+    margin: 20px auto;
+    max-width: 1000px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 200px;
+    background-color: lightgray;
+}
+
+.item {
+    background-color: steelblue;
+    color: white;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+}
+/* Card */
+.destination-card {
+    border: 2px solid #ddd; /* Đường viền cho card */
+    border-radius: 10px; /* Bo góc cho card */
+    overflow: hidden; /* Ẩn phần nào đó nếu quá khổ */
+    width: 300px; /* Độ rộng của từng card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ */
+    transition: transform 0.3s ease-in-out; /* Hiệu ứng khi hover */
+}
+
+.destination-card:hover {
+    transform: scale(1.05);
+}
+
+.destination-content {
+    text-align: center;
+    padding: 10px;
+}
+
+.destination-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+p {
+    font-size: 1em;
+    color: #555;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #ff6f61;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #ff4e3d;
+}
+
+/* Hình ảnh */
+.hanoi-images {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.hanoi-img {
+    width: 48%;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.hanoi-img:hover {
+    transform: scale(1.05);
+}
+
+/* Các phần mô tả */
+section p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+section p strong {
+    font-weight: bold;
+}
+
+section a.btn {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+section a.btn:hover {
+    background-color: #0072ff;
+}
+
+/* Footer */
+footer {
+    background-color: #28a745;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

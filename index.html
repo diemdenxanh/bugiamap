@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="img-src 'self' data: https: http:; default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data:;">
+    <title>Explore Vietnam</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script type="text/javascript" src="hoaanhdao.js"></script>
+  
+    <!-- Language Switcher Style -->
+    <style>
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .language-switcher button {
+            padding: 8px 16px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .language-switcher button:hover {
+            background: #f0f0f0;
+        }
+    </style>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore.js"></script>
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDOAXwy9u2VulNga1hGzie1B01PSs1BXck",
+            authDomain: "webdu-34408.firebaseapp.com",
+            projectId: "webdu-34408",
+            storageBucket: "webdu-34408.appspot.com",
+            messagingSenderId: "732910129756",
+            appId: "1:732910129756:web:7118dd3b7c7ec8e2124c99",
+            measurementId: "G-YEBQJQ4BZT"
+        };
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+    </script>
+   <!-- Language Translation Script -->
+    <script>
+        const translations = {
+            vi: {
+                home: "Trang Chủ",
+                destinations: "Điểm Đến", 
+                services: "Dịch Vụ",
+                testimonials: "Đánh Giá",
+                contact: "Liên Hệ",
+                login: "Đăng nhập",
+                signup: "Đăng ký",
+                welcomeTitle: "Chào mừng bạn đến với website của chúng tôi!",
+                welcomeText: "Khám phá các điểm du lịch hấp dẫn và trải nghiệm dịch vụ tốt nhất.",
+                exploreNow: "Khám phá ngay",
+                featuredDestinationsTitle: "Điểm đến nổi bật",
+                servicesTitle: "Dịch Vụ",
+                bookingServiceTitle: "Đặt tour trong nước và quốc tế",
+                bookingServiceDesc: "Đa dạng lựa chọn tour du lịch hấp dẫn",
+                visaServiceTitle: "Dịch vụ visa nhanh chóng", 
+                visaServiceDesc: "Thủ tục đơn giản, xử lý nhanh chóng",
+                hotelServiceTitle: "Khách sạn và nghỉ dưỡng",
+                hotelServiceDesc: "Đặt phòng tại các khách sạn cao cấp",
+                guideServiceTitle: "Hướng dẫn viên chuyên nghiệp",
+                guideServiceDesc: "Đội ngũ hướng dẫn viên giàu kinh nghiệm",
+                testimonialsTitle: "Đánh Giá Khách Hàng",
+                explore: "Khám phá",
+                animatedImages: "Ảnh động",
+                // Destinations
+        binhPhuocTitle: "Bình Phước",
+        binhPhuocDesc: "Miền đất xanh của Tây Nguyên hạnh phúc và yên bình...",
+        hanoiTitle: "Hà Nội",
+        hanoiDesc: "Thủ đô nghìn năm văn hiến với những con phố cổ đậm chất truyền thống...",
+        sapaTitle: "Sapa",
+        sapaDesc: "Thành phố trong sương với những thửa ruộng bậc thang tuyệt đẹp...",
+        // Add other destinations...
+
+        // Services
+        bookingServiceTitle: "Đặt tour trong nước và quốc tế",
+        bookingServiceDesc: "Đa dạng lựa chọn tour du lịch hấp dẫn",
+        visaServiceTitle: "Dịch vụ visa nhanh chóng",
+        visaServiceDesc: "Thủ tục đơn giản, xử lý nhanh chóng",
+        // Add other services...
+
+        // Testimonials
+        testimonial1: "Chuyến đi đến Hà Nội thật tuyệt vời! Tôi rất hài lòng với dịch vụ.",
+        author1: "- Nguyễn Văn A",
+        testimonial2: "Sapa là điểm đến đáng nhớ. Cảm ơn đội ngũ đã tổ chức chuyến đi rất chu đáo.",
+        author2: "- Lê Thị B",
+        // Add other testimonials...
+                footerText: "© 2024 Explore Vietnam. Đã đăng ký bản quyền.",
+                languageVI: "🇻🇳 Tiếng Việt",
+                languageEN: "🇬🇧 English"
+            },
+            en: {
+                home: "Home",
+                destinations: "Destinations",
+                services: "Services", 
+                testimonials: "Testimonials",
+                contact: "Contact",
+                login: "Login",
+                signup: "Sign Up",
+                register: "Register",
+                welcomeTitle: "Welcome to our website!",
+                welcomeText: "Discover attractive tourist destinations and experience the best service.",
+                exploreNow: "Explore Now",
+                featuredDestinationsTitle: "Featured Destinations",
+                servicesTitle: "Services",
+                bookingServiceTitle: "Domestic and International Tour Booking",
+                bookingServiceDesc: "Diverse selection of attractive tours",
+                visaServiceTitle: "Fast Visa Services",
+                visaServiceDesc: "Simple procedures, quick processing",
+                hotelServiceTitle: "Hotels and Resorts",
+                hotelServiceDesc: "Book rooms at luxury hotels",
+                guideServiceTitle: "Professional Tour Guides",
+                guideServiceDesc: "Experienced guide team",
+                testimonialsTitle: "Customer Reviews",
+                explore: "Explore",
+                animatedImages: "Animated Images",
+                footerText: "© 2024 Explore Vietnam. All rights reserved.",
+                  
+        // Destinations
+        binhPhuocTitle: "Binh Phuoc",
+        binhPhuocDesc: "The Green Land of the Central Highlands: Happiness and Peace...",
+        hanoiTitle: "Hanoi",
+        hanoiDesc: "The thousand-year-old capital with traditional old quarters...",
+        sapaTitle: "Sapa",
+        sapaDesc: "A city in the mist with beautiful terraced fields...",
+        mangDenTitle: "Mang Den",
+        mangDenDesc: "The 'Little Da Lat' of Central Highlands with temperate climate...",
+        hoiAnTitle: "Hoi An",
+        hoiAnDesc: "Ancient town with unique architecture and cultural heritage...",
+        haGiangTitle: "Ha Giang",
+        haGiangDesc: "Northern mountainous province with breathtaking landscapes...",
+        phuYenTitle: "Phu Yen",
+        phuYenDesc: "Peaceful and poetic land with beautiful beaches...",
+
+        // Testimonials
+        testimonial1: "The trip to Hanoi was wonderful! I'm very satisfied with the service.",
+        author1: "- Nguyen Van A",
+        testimonial2: "Sapa was a memorable destination. Thank you team for organizing the trip so carefully.",
+        author2: "- Le Thi B",
+        testimonial3: "Mang Den was so peaceful, I had valuable relaxing moments.",
+        author3: "- Tran Van C",
+
+        // Other elements
+        languageVI: "🇻🇳 Vietnamese",
+        languageEN: "🇬🇧 English",
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+    try {
+        // Mặc định sử dụng tiếng Việt
+        const defaultLang = 'vi';
+        switchLanguage(defaultLang);
+        
+        // Thêm sự kiện cho các nút chuyển đổi ngôn ngữ
+        const viButton = document.querySelector('button[data-lang="vi"]');
+        const enButton = document.querySelector('button[data-lang="en"]');
+        
+        if (!viButton || !enButton) {
+            console.warn('Language switcher buttons not found');
+            return;
+        }
+
+        // Cập nhật text cho các nút
+        updateLanguageButtons(defaultLang, viButton, enButton);
+        
+        // Thêm event listeners
+        viButton.addEventListener('click', () => switchLanguage('vi'));
+        enButton.addEventListener('click', () => switchLanguage('en'));
+
+    } catch (error) {
+        console.error('Error initializing language system:', error);
+    }
+});
+
+function switchLanguage(lang) {
+    try {
+        if (!translations[lang]) {
+            throw new Error(`Translation not found for language: ${lang}`);
+        }
+
+        // Cập nhật thuộc tính lang của HTML
+        document.documentElement.lang = lang;
+
+        // Cập nhật text cho các nút ngôn ngữ
+        const viButton = document.querySelector('button[data-lang="vi"]');
+        const enButton = document.querySelector('button[data-lang="en"]');
+        
+        if (viButton && enButton) {
+            updateLanguageButtons(lang, viButton, enButton);
+        }
+
+        // Cập nhật các phần tử có data-translate
+        updateTranslatedElements(lang);
+
+        // Cập nhật menu items
+        updateMenuItems(lang);
+
+        // Cập nhật service items
+        updateServiceItems(lang);
+
+        // Cập nhật các tiêu đề section
+        updateSectionTitles(lang);
+
+        // Cập nhật footer
+        updateFooter(lang);
+
+        // Cập nhật nút explore
+        updateExploreButtons(lang);
+
+        // Lưu ngôn ngữ vào localStorage
+        localStorage.setItem('selectedLanguage', lang);
+        
+        // Dispatch event để thông báo ngôn ngữ đã thay đổi
+        window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
+        
+    } catch (error) {
+        console.error('Error switching language:', error);
+    }
+}
+
+function updateLanguageButtons(lang, viButton, enButton) {
+    viButton.textContent = translations[lang].languageVI;
+    enButton.textContent = translations[lang].languageEN;
+}
+
+function updateTranslatedElements(lang) {
+    document.querySelectorAll('[data-translate]').forEach(element => {
+        try {
+            const key = element.getAttribute('data-translate');
+            if (!key) return;
+            
+            const translation = translations[lang][key];
+            if (!translation) {
+                console.warn(`Translation missing for key: ${key} in language: ${lang}`);
+                return;
+            }
+
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                element.placeholder = translation;
+            } else {
+                element.textContent = sanitizeHTML(translation);
+            }
+        } catch (elementError) {
+            console.error('Error updating element:', elementError);
+        }
+    });
+}
+
+function sanitizeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+function updateMenuItems(lang) {
+    document.querySelectorAll('.menu a').forEach(link => {
+        const key = link.getAttribute('data-translate');
+        if (key && translations[lang][key]) {
+            link.textContent = translations[lang][key];
+        }
+    });
+}
+
+function updateServiceItems(lang) {
+    document.querySelectorAll('.service-content').forEach(service => {
+        const titleElement = service.querySelector('h3');
+        const descElement = service.querySelector('p');
+        
+        if (titleElement && descElement) {
+            const titleKey = titleElement.getAttribute('data-translate');
+            const descKey = descElement.getAttribute('data-translate');
+            
+            if (titleKey && translations[lang][titleKey]) {
+                titleElement.textContent = translations[lang][titleKey];
+            }
+            if (descKey && translations[lang][descKey]) {
+                descElement.textContent = translations[lang][descKey];
+            }
+        }
+    });
+}
+
+function updateSectionTitles(lang) {
+    document.querySelectorAll('section[data-section]').forEach(section => {
+        const titleKey = section.getAttribute('data-section') + 'Title';
+        const titleElement = section.querySelector('h2');
+        if (titleElement && translations[lang][titleKey]) {
+            titleElement.textContent = translations[lang][titleKey];
+        }
+    });
+}
+
+function updateFooter(lang) {
+    const footerText = document.querySelector('footer p');
+    if (footerText && translations[lang].footerText) {
+        footerText.textContent = translations[lang].footerText;
+    }
+}
+
+function updateExploreButtons(lang) {
+    document.querySelectorAll('.destination-card .btn').forEach(btn => {
+        if (translations[lang].explore) {
+            btn.textContent = translations[lang].explore;
+        }
+    });
+}
+</script>
+
+    <!-- Script -->
+    <script defer src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <style>
+        .effects-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .snowflakes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1001;
+        }
+
+        #sakura-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1002;
+        }
+
+        /* Giữ lại animation cho tuyết */
+        .snowflake {
+            position: absolute;
+            color: #fff;
+            font-size: 1em;
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100%) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(100px); 
+                opacity: 0;
+            }
+        }
+
+        /* Giữ lại các vị trí snowflake */
+        .snowflake:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .snowflake:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .snowflake:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .snowflake:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .snowflake:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .snowflake:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .snowflake:nth-child(7) { left: 70%; animation-delay: 6s; }
+        .snowflake:nth-child(8) { left: 80%; animation-delay: 7s; }
+        .snowflake:nth-child(9) { left: 90%; animation-delay: 8s; }
+        .snowflake:nth-child(10) { left: 95%; animation-delay: 9s; }
+        .snowflake:nth-child(11) { left: 15%; animation-delay: 10s; }
+        .snowflake:nth-child(12) { left: 75%; animation-delay: 11s; }
+
+        /* Sakura styles */
+        .sakura {
+            position: absolute;
+            background: #ffd7e6;
+            border-radius: 50%;
+            pointer-events: none;
+            width: 15px;
+            height: 15px;
+        }
+
+        .sakura::before,
+        .sakura::after {
+            content: '';
+            position: absolute;
+            background: #ffd7e6;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 5px #ffd7e6;
+        }
+
+        .sakura::before {
+            transform: rotate(60deg);
+        }
+
+        .sakura::after {
+            transform: rotate(-60deg);
+        }
+
+        @keyframes sway {
+            from {
+                transform: translateX(-50px) rotate(0deg);
+            }
+            to {
+                transform: translateX(50px) rotate(360deg);
+            }
+        }
+    </style>
+
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://www.gstatic.com https://cdn.jsdelivr.net;
+        style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline';
+        img-src 'self' https: data:;
+        font-src 'self' https://cdnjs.cloudflare.com;
+        frame-src https://www.youtube.com;
+        connect-src 'self' https://firebaseapp.com;
+        frame-src 'self' https://thoitiet.app;
+    ">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    
+    <!-- Import Security Manager -->
+    <script type="module" src="admin.js"></script>
+    <script type="module" src="security.js"></script>
+    <script src="darkmode.js"></script>
+
+
+    <!-- Dark Mode Script -->
+    <script src="darkmode.js"></script>
+</head>
+<!--HTML-->
+<div class="effects-container">
+    <!-- Container cho tuyết rơi -->
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <!-- Thêm bông tuyết -->
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❃</div>
+    </div>
+
+    <!-- Container cho hoa anh đào -->
+    <div id="sakura-container"></div>
+    <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+</div>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="language-switcher" data-lang="vi">🇻🇳 VI</button>
+        <button class="language-switcher" data-lang="en">🇬🇧 EN</button>
+    </div>
+      <script src="script.js"></script>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">🌏 Explore Vietnam</div>
+        <nav class="menu">
+            <ul>
+                <li><a href="#home" data-translate="home">Trang Chủ</a></li>
+                <li><a href="#destinations" data-translate="destinations">Điểm Đến</a></li>
+                <li><a href="#services" data-translate="services">Dịch Vụ</a></li>
+                <li><a href="#testimonials" data-translate="testimonials">Đánh Giá</a></li>
+                <li><a href="#contact" data-translate="contact">Liên Hệ</a></li>
+                <li><a id="loginBtn" href="login.html" data-translate="login">Đăng nhập</a></li>
+                <li><a id="registerBtn" href="login.html?action=register" data-translate="register">Đăng ký</a></li>
+            </ul>
+        </nav>
+        <!-- Thêm dark mode switch -->
+        <div class="dark-mode-switch">
+            <button id="darkModeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="banner">
+            <div class="banner-content">
+                <h2 id="welcome-title" data-translate="welcomeTitle">Chào mừng bạn đến với website của chúng tôi!</h2>
+                <p id="welcome-text" data-translate="welcomeText">Khám phá các điểm du lịch hấp dẫn và trải nghiệm dịch vụ tốt nhất.</p>
+                <button class="explore-btn" data-translate="exploreNow">
+                    <span>Khám phá ngay</span>
+                </button>
+            </div>
+        </section>
+
+        <section id="destinations" class="destinations">
+            <h2 data-translate="featuredDestinationsTitle">Điểm đến nổi bật</h2>
+            <div class="featured-destinations">
+                <div class="destination-card">
+                    <img src="https://file1.dangcongsan.vn/data/0/images/2022/10/26/upload_2694/image0.jpeg" alt="Bình Phước" crossorigin="anonymous">
+                    <div class="destination-info">
+                        <h3 data-translate="binhPhuocTitle">Bình Phước</h3>
+                        <p data-translate="binhPhuocDesc">Miền đất xanh của Tây Nguyên hạnh phúc và yên bình...</p>
+                        <a href="binhphuoc.html" class="btn" data-translate="explore">Khám phá</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="https://tophanoiaz.com/wp-content/uploads/2023/09/anh-pho-co-ha-noi_3.jpg" alt="Hà Nội">
+                    <div class="destination-info">
+                        <h3 data-translate="hanoiTitle">Hà Nội</h3>
+                        <p data-translate="hanoiDesc">Thủ đô nghìn năm văn hiến với những con phố cổ đậm chất truyền thống, những di tích lịch sử và ẩm thực đặc sắc...</p>
+                        <a href="hanoi.html" class="btn" data-translate="explore">Khám phá</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="https://image.baophapluat.vn/w840/Uploaded/2024/gfszlyrgtpe/2023_05_09/sapa20230509102910-7052.jpg" alt="Sapa">
+                    <div class="destination-info">
+                        <h3 data-translate="sapaTitle">Sapa</h3>
+                        <p data-translate="sapaDesc">Thành phố trong sương với những thửa ruộng bậc thang tuyệt đẹp, văn hóa độc đáo của đồng bào dân tộc và khí hậu mát mẻ quanh năm...</p>
+                        <a href="sapa.html" class="btn" data-translate="explore">Khám phá</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="https://cdn.vntrip.vn/cam-nang/wp-content/uploads/2017/07/ha_nguyen_mang_den_1_RMExI.jpg" alt="Măng Đen">
+                    <div class="destination-info">
+                        <h3 data-translate="mangDenTitle">Măng Đen</h3>
+                        <p data-translate="mangDenDesc">"Đà Lạt thu nhỏ" của Tây Nguyên với khí hậu ôn đới, những rừng thông xanh ngát và các thác nước hùng vĩ...</p>
+                        <a href="mangden.html" class="btn" data-translate="explore">Khám phá</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="https://xtrip.vn/upload/editor/Tin%20du%20l%E1%BB%8Bch/lich-trinh-du-lich-hoi-an-24-gio-3.png" alt="Hội An">
+                    <div class="destination-info">
+                        <h3 data-translate="hoiAnTitle">Hội An</h3>
+                        <p data-translate="hoiAnDesc">Phố cổ Hội An - Di sản văn hóa thế giới với kiến trúc độc đáo và ẩm thực đặc sắc...</p>
+                        <a href="hoian.html" class="btn" data-translate="explore">Khám phá</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="https://vov2.vov.vn/sites/default/files/styles/large/public/2021-11/dulichhagiang.jpg" alt="Hà Giang">
+                    <div class="destination-info">
+                        <h3 data-translate="haGiangTitle">Hà Giang</h3>
+                        <p data-translate="haGiangDesc">Vùng cao nguyên đá với cảnh quan hùng vĩ và văn hóa dân tộc đặc sắc...</p>
+                        <a href="hagiang.html" class="btn" data-translate="explore">Khám phá</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="https://file.hstatic.net/1000054905/file/kinh-nghiem-du-lich-phu-yen_c1dcc38219c94c3280abbeffdf3d546e.jpg" alt="Phú Yên">
+                    <div class="destination-info">
+                        <h3 data-translate="phuYenTitle">Phú Yên</h3>
+                        <p data-translate="phuYenDesc">Vùng đất bình yên với những bãi biển hoang sơ và cảnh đẹp tuyệt vời...</p>
+                        <a href="phuyen.html" class="btn" data-translate="explore">Khám phá</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <h2 class="services-title" data-translate="servicesTitle">Dịch Vụ</h2>
+            <ul class="services-list">
+                <li class="service-item">
+                    <i class="fas fa-plane"></i>
+                    <div class="service-content">
+                        <h3 data-translate="bookingServiceTitle">Đặt tour trong nước và quốc tế</h3>
+                        <p data-translate="bookingServiceDesc">Đa dạng lựa chọn tour du lịch hấp dẫn</p>
+                    </div>
+                </li>
+                <li class="service-item">
+                    <i class="fas fa-passport"></i>
+                    <div class="service-content">
+                        <h3 data-translate="visaServiceTitle">Dịch vụ visa nhanh chóng</h3>
+                        <p data-translate="visaServiceDesc">Thủ tục đơn giản, xử lý nhanh chóng</p>
+                    </div>
+                </li>
+                <li class="service-item">
+                    <i class="fas fa-hotel"></i>
+                    <div class="service-content">
+                        <h3 data-translate="hotelServiceTitle">Khách sạn và nghỉ dưỡng</h3>
+                        <p data-translate="hotelServiceDesc">Đặt phòng tại các khách sạn cao cấp</p>
+                    </div>
+                </li>
+                <li class="service-item">
+                    <i class="fas fa-user-tie"></i>
+                    <div class="service-content">
+                        <h3 data-translate="guideServiceTitle">Hướng dẫn viên chuyên nghiệp</h3>
+                        <p data-translate="guideServiceDesc">Đội ngũ hướng dẫn viên giàu kinh nghiệm</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="video-section">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/9Sk-Ft4sgaM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </section>
+
+        <section id="animated-image">
+            <h2>Ảnh động</h2>
+            <video width="100%" height="auto" autoplay loop muted playsinline>
+                <source src="https://cdn.pixabay.com/video/2017/01/07/7127-336300875_tiny.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+
+        <section id="testimonials">
+            <h2 class="testimonials-title" data-translate="testimonialsTitle">Đánh Giá Khách Hàng</h2>
+            <div class="testimonials-container">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <div class="quote-box">
+                            <p class="quote-text" data-translate="testimonial1">"Chuyến đi đến Hà Nội thật tuyệt vời! Tôi rất hài lòng với dịch vụ."</p>
+                            <span class="testimonial-author" data-translate="author1">- Nguyễn Văn A</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <div class="quote-box">
+                            <p class="quote-text" data-translate="testimonial2">"Sapa là điểm đến đáng nhớ. Cảm ơn đội ngũ đã tổ chức chuyến đi rất chu đáo."</p>
+                            <span class="testimonial-author" data-translate="author2">- Lê Thị B</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <div class="quote-box">
+                            <p class="quote-text" data-translate="testimonial3">"Măng Đen thật yên bình, tôi đã có những giây phút thư giãn đáng giá."</p>
+                            <span class="testimonial-author" data-translate="author3">- Trần Văn C</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo animate__animated animate__pulse">
+                <img src="/Users/than/Downloads/DALL·E 2024-12-04 22.32.50 - A minimalist artistic logo for a footer section, featuring a circular camera lens with subtle geometric details, in dark moody tones like deep gray an.webp" alt="Explore Vietnam Logo" class="logo-img">
+                <div class="logo-text">
+                    <h3 class="company-name">Explore Vietnam</h3>
+                    <p class="tagline">Discover the Beauty</p>
+                </div>
+            </div>
+            <div class="footer-info">
+                <p class="copyright">© 2024 Explore Vietnam. All rights reserved.</p>
+                <p class="designer">Designed with <i class="fas fa-heart pulse"></i> by Nguyễn Thanh Bình</p>
+            </div>
+        </div>
+        <style>
+            .footer-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+                background: linear-gradient(45deg, #1a1a1a, #333);
+            }
+            .footer-logo {
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+            .logo-img {
+                width: 60px;
+                height: 60px;
+                margin-right: 15px;
+                animation: rotate 10s linear infinite;
+            }
+            .logo-text {
+                color: #fff;
+            }
+            .company-name {
+                font-size: 1.5em;
+                margin: 0;
+                background: linear-gradient(45deg, #ff4d4d, #ffcc00);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .tagline {
+                font-size: 0.9em;
+                margin: 5px 0;
+                color: #ccc;
+            }
+            .footer-info {
+                text-align: center;
+                color: #fff;
+            }
+            .designer {
+                margin-top: 10px;
+                color: #ccc;
+            }
+            .fa-heart {
+                color: #ff4d4d;
+                animation: pulse 1.5s infinite;
+            }
+            @keyframes rotate {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+                100% { transform: scale(1); }
+            }
+        </style>
+    </footer>
+    <!-- Continue with the rest of your existing HTML -->
+    <!-- ... -->
+   
+    <!-- Thêm container cho hiệu ứng -->
+    <div id="effects-container" class="effects-layer"></div>
+    <div id="snowflakes-container" class="effects-layer"></div>
+
+     <!-- Thêm container cho hiệu ứng -->
+     <div id="effects-container"></div>
+
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+    // Khởi tạo hiệu ứng từ hoaanhdao.js
+    if (typeof initializeEffects === 'function') {
+        initializeEffects();
+    }
+
+    // Xử lý hiệu năng
+    document.addEventListener('visibilitychange', function() {
+        const effectsContainer = document.querySelector('.effects-container');
+        if (document.hidden) {
+            effectsContainer.style.visibility = 'hidden';
+        } else {
+            effectsContainer.style.visibility = 'visible';
+        }
+    });
+});
+    </script>
+</body>
+</html> 
